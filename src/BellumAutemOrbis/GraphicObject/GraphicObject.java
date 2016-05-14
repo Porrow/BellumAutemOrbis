@@ -13,12 +13,13 @@ public abstract class GraphicObject
     protected final int w;
     protected final int h;
     protected PImage[] tabImg;
+    protected int[][][] tabDat;
      
     protected GraphicObject(BellumAutemOrbis bao, int x, int y, int w, int h)
     {
         this.bao = bao;
-        this.x = x;
-        this.y = y;
+        this.x = (bao.width-bao.W) / 2 + x;
+        this.y = (bao.height-bao.H) / 2 + y;
         this.w = w;
         this.h = h;
     }
@@ -27,6 +28,12 @@ public abstract class GraphicObject
     {
         this(bao, x, y, w, h);
         tabImg = loadImages(path);
+    }
+    
+    protected GraphicObject(BellumAutemOrbis bao, int x, int y, int w, int h, String imgPath, String datPath)
+    {
+        this(bao, x, y, w, h, imgPath);
+        tabDat = loadData(datPath);
     }
      
     private PImage[] loadImages(String path)                                    //Charge un dossier d'image dans un tableau de PImage
@@ -46,6 +53,42 @@ public abstract class GraphicObject
                 }
         }
         return imgs;
+    }
+    
+    private int[][][] loadData(String path)
+    {
+        String na;
+        File[] files = new File(path).listFiles();
+        int[][][] data = new int[files.length][][];
+        for(int i = 0, ind; i < files.length; i++)
+        {
+            na = files[i].getName();
+            String ext = na.substring(na.lastIndexOf("."));
+            if(ext.equals(".int"))
+            {   
+                ind = Integer.parseInt(na.substring(0, na.lastIndexOf(".")));
+                data[ind] = matrixTextFile(path + na);
+            }
+        }
+        return data;
+    }
+    
+    public int[][] matrixTextFile(String path)                                  //Charge un fichier texte constitué de nombres et dont la disposition s'effectue en matrice
+    {
+        String[] tabLine = bao.loadStrings(path);
+        int[][] data = new int[tabLine.length][];
+        for(int i = 0; i < tabLine.length; i++)
+            data[i] = string2Int(tabLine[i]);
+        return data;
+    }
+    
+    public int[] string2Int(String ch)                                          //Convertit une chaine de caractère en tableau d'entiers
+    {
+        String[] tabCh = ch.split(" ");
+        int tabI[] = new int[tabCh.length];
+        for(int i = 0; i < tabI.length; i++)
+            tabI[i] = Integer.parseInt(tabCh[i]);
+        return tabI;
     }
  
     protected void image(PImage i, int rx, int ry)
@@ -84,8 +127,8 @@ public abstract class GraphicObject
     public int getRY(int py){return py - y;}                                    //Position relative en y
      
     /*Abstract methods*/
-    public abstract void init();                                                //Gestion de l'initialisation du composant graphique
-    public abstract void draw();                                                //Gestion de l'affichage du composant à l'aide de processing (60 ips)
-    public abstract void mousePressed(int x, int y);                            //Gestion des clics de souris
-    public abstract void mouseMoved(int x, int y);                              //Gestion du mouvement de la souris
+    public abstract void init();                                                //Gestion de l'initialisation du composant graphique (appelé à chaque changement de View)
+    public abstract void draw();                                                //Gestion de l'affichage du composant à l'aide de processing (appelé 60 fois par sec)
+    public abstract void mousePressed(int x, int y);                            //Gestion des clics de souris (appelé à chaque clic sur le composant)
+    public abstract void mouseMoved(int x, int y);                              //Gestion du mouvement de la souris (appelé à chaque mouvement sur le composant)
 }

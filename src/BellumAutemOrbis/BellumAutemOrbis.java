@@ -1,16 +1,17 @@
 package BellumAutemOrbis;
 
-import BellumAutemOrbis.GraphicObject.GraphicObject;
+import BellumAutemOrbis.GraphicObject.*;
 import BellumAutemOrbis.View.*;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 public class BellumAutemOrbis extends PApplet
 {
-    private final int W = 1280;
-    private final int H = 720;
+    public final int W = 1280;
+    public final int H = 720;
     private final int FPS = 60;
     private final String TITLE = "Bellum Autem Orbis";
+    private final boolean DEBUG = true;                                         //True : affiche des informations de debuggage et de performance
     
     public static BellumAutemOrbis bao;
     private int view;
@@ -38,8 +39,8 @@ public class BellumAutemOrbis extends PApplet
     public void settings()                                                      //Paramétrage (appelé en premier)
     {
         bao = this;
-        size(W, H);                                                             //Taille de la fenêtre
-        //fullScreen();
+        //size(W, H);                                                             //Taille de la fenêtre
+        fullScreen(P2D);
     }
     
     @Override
@@ -47,8 +48,10 @@ public class BellumAutemOrbis extends PApplet
     {
         surface.setTitle(TITLE);
         frameRate(FPS);                                                         //Nombre d'images par seconde max
+        background(0);
         initViews();
-        setView(0);
+        setView(1);
+        new DynamicEvent((Game)tabView[1]).start();
     }
     
     @Override
@@ -56,6 +59,15 @@ public class BellumAutemOrbis extends PApplet
     {
         for(GraphicObject gro : tabView[view].getTabGrO())
             gro.draw();
+        if(DEBUG)                                                               //Si le mode debug est actif
+        {
+            fill(0);
+            rect(0, 0, 100, 200);
+            fill(255);
+            text((int)(frameRate) + " FPS", 15, 25);
+            text("posX = " + (mouseX - (width-W)/2), 15, 45);
+            text("posY = " + (mouseY - (height-H)/2), 15, 65);
+        }
     }
 
     @Override
