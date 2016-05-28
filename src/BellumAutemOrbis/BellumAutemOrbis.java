@@ -31,15 +31,18 @@ public class BellumAutemOrbis extends PApplet
     
     public void initGraphicObjects()
     {
-        for(GraphicObject gro : tabView[view].getTabGrO())
-            gro.init();
+        for(Object o : tabView[view].getTabGrO())
+        {
+            GraphicObject grO = (GraphicObject)o;
+            grO.init();
+        }
     }
     
     @Override
     public void settings()                                                      //Paramétrage (appelé en premier)
     {
         bao = this;
-        //size(W, H);                                                             //Taille de la fenêtre
+        //size(W, H, P2D);                                                             //Taille de la fenêtre
         fullScreen(P2D);
     }
     
@@ -57,8 +60,11 @@ public class BellumAutemOrbis extends PApplet
     @Override
     public void draw()
     {
-        for(GraphicObject gro : tabView[view].getTabGrO())
-            gro.draw();
+        for(Object o : tabView[view].getTabGrO())
+        {
+            GraphicObject grO = (GraphicObject)o;
+            grO.draw();
+        }
         if(DEBUG)                                                               //Si le mode debug est actif
         {
             fill(0);
@@ -73,15 +79,21 @@ public class BellumAutemOrbis extends PApplet
     @Override
     public void mousePressed(MouseEvent event) 
     {
-        for(GraphicObject gro : tabView[view].getTabGrO())
-            gro.mousePressed(event.getX(), event.getY());
+        for(Object o : tabView[view].getTabGrO())
+        {
+            GraphicObject grO = (GraphicObject)o;
+            grO.mousePressed(event.getX(), event.getY());
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent event)
     {
-        for(GraphicObject gro : tabView[view].getTabGrO())
-            gro.mouseMoved(event.getX(), event.getY());
+        for(Object o : tabView[view].getTabGrO())
+        {
+            GraphicObject grO = (GraphicObject)o;
+            grO.mouseMoved(event.getX(), event.getY());
+        }
     }
     
     /*Getters*/

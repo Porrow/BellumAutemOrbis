@@ -8,6 +8,7 @@ public class World extends GraphicObject
     private static final String IMGPATH = "res/img/world/";
     private static final String DATPATH = "res/dat/world/";
     public static final int C = 40;
+    public final int SCALE = 3;
     public final int W = 100 * C;
     public final int H = 100 * C;
     public int posX;
@@ -49,11 +50,11 @@ public class World extends GraphicObject
     {
         x = getRX(x);
         y = getRY(y);
-        if     (x <= 0) moveX = -1;
-        else if(x >= w) moveX = +1;
-        else            moveX = 0;
-        if     (y <= 0) moveY = -1;
-        else if(y >= h) moveY = +1;
-        else            moveY = 0;
+        if     (x <= 0)     moveX = -1;
+        else if(x >= w-1)   moveX = +1;
+        else                moveX = 0;
+        if     (y <= 0)     moveY = -1;
+        else if(y >= h-1)   moveY = +1;
+        else                moveY = 0;
     }
 }

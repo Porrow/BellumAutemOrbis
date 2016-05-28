@@ -3,10 +3,11 @@ package BellumAutemOrbis.GraphicObject;
 import BellumAutemOrbis.BellumAutemOrbis;
 import java.io.File;
 import processing.core.*;
+import static processing.core.PConstants.ARGB;
  
 public abstract class GraphicObject
 {   
-    private static final String[] ACCEPTED_EXT = {".png", ".jpg", ".gif"};      //Extensions d'image autorisées
+    private static final String[] IMG_EXT = {".png", ".jpg", ".gif"};      //Extensions d'image autorisées
     protected final BellumAutemOrbis bao;
     protected final int x;
     protected final int y;
@@ -45,14 +46,28 @@ public abstract class GraphicObject
         {
             na = files[i].getName();
             String ext = na.substring(na.lastIndexOf("."));
-            for(String a_ext : ACCEPTED_EXT)
-                if(ext.equals(a_ext))
-                {   
-                    ind = Integer.parseInt(na.substring(0, na.lastIndexOf(".")));
-                    imgs[ind] = bao.loadImage(path + na);
-                }
+            for(String a_ext : IMG_EXT)
+                if(ext.equals(a_ext))  
+                    try
+                    {
+                        ind = Integer.parseInt(na.substring(0, na.lastIndexOf(".")));
+                        imgs[ind] = bao.loadImage(path + na);
+                    }
+                    catch(Exception e){}
         }
         return imgs;
+    }
+    
+    protected PImage[][]cut(PImage base, int w, int h)
+    {
+        PImage[][] tfin = new PImage[base.height/w][base.width/h];
+        for(int i = 0; i < base.height/w; ++i)
+            for(int j = 0; j < base.width/h; ++j)
+            {
+                tfin[i][j] = bao.createImage(w, h, ARGB);
+                tfin[i][j].copy(base, j*w, i*h, w, h, 0, 0, w, h);
+            }
+        return tfin;
     }
     
     private int[][][] loadData(String path)
@@ -64,7 +79,7 @@ public abstract class GraphicObject
         {
             na = files[i].getName();
             String ext = na.substring(na.lastIndexOf("."));
-            if(ext.equals(".int"))
+            if(ext.equals(".dat"))
             {   
                 ind = Integer.parseInt(na.substring(0, na.lastIndexOf(".")));
                 data[ind] = matrixTextFile(path + na);
