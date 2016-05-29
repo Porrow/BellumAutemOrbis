@@ -9,7 +9,7 @@ public class BellumAutemOrbis extends PApplet
 {
     public final int W = 1280;
     public final int H = 720;
-    private final int FPS = 60;
+    public static final int FPS = 60;
     private final String TITLE = "Bellum Autem Orbis";
     private final boolean DEBUG = true;                                         //True : affiche des informations de debuggage et de performance
     
@@ -42,7 +42,7 @@ public class BellumAutemOrbis extends PApplet
     public void settings()                                                      //Paramétrage (appelé en premier)
     {
         bao = this;
-        //size(W, H, P2D);                                                             //Taille de la fenêtre
+        size(W, H, P2D);                                                             //Taille de la fenêtre
         fullScreen(P2D);
     }
     
@@ -51,7 +51,7 @@ public class BellumAutemOrbis extends PApplet
     {
         surface.setTitle(TITLE);
         frameRate(FPS);                                                         //Nombre d'images par seconde max
-        background(0);
+        
         initViews();
         setView(1);
         new DynamicEvent((Game)tabView[1]).start();
@@ -60,6 +60,7 @@ public class BellumAutemOrbis extends PApplet
     @Override
     public void draw()
     {
+        background(0);
         for(Object o : tabView[view].getTabGrO())
         {
             GraphicObject grO = (GraphicObject)o;

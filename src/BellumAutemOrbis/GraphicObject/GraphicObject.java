@@ -9,8 +9,8 @@ public abstract class GraphicObject
 {   
     private static final String[] IMG_EXT = {".png", ".jpg", ".gif"};      //Extensions d'image autorisées
     protected final BellumAutemOrbis bao;
-    protected final int x;
-    protected final int y;
+    public float x;
+    public float y;
     protected final int w;
     protected final int h;
     protected PImage[] tabImg;
@@ -134,12 +134,12 @@ public abstract class GraphicObject
     }
      
     /*Getters*/
-    public int getX(){return x;}
-    public int getY(){return y;}
+    public float getX(){return x;}
+    public float getY(){return y;}
     public int getW(){return w;}
     public int getH(){return h;}
-    public int getRX(int px){return px - x;}                                    //Position relative en x
-    public int getRY(int py){return py - y;}                                    //Position relative en y
+    public float getRX(int px){return px - x;}                                    //Position relative en x
+    public float getRY(int py){return py - y;}                                    //Position relative en y
      
     /*Abstract methods*/
     public abstract void init();                                                //Gestion de l'initialisation du composant graphique (appelé à chaque changement de View)

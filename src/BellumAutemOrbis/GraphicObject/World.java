@@ -11,8 +11,8 @@ public class World extends GraphicObject
     public final int SCALE = 3;
     public final int W = 100 * C;
     public final int H = 100 * C;
-    public int posX;
-    public int posY;
+    public static int posX;
+    public static int posY;
     public int moveX;
     public int moveY;
     private PGraphics img;
@@ -20,8 +20,8 @@ public class World extends GraphicObject
     public World(BellumAutemOrbis bao, int x, int y) 
     {
         super(bao, 0, 0, bao.W, bao.H, IMGPATH, DATPATH);
-        this.posX = x;
-        this.posY = y;
+        posX = x;
+        posY = y;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class World extends GraphicObject
     @Override
     public void draw()
     {
-        bao.g.copy(img, posX, posY, w, h, x, y, w, h);
+        bao.g.copy(img, posX, posY, w, h, (int)x, (int)y, w, h);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class World extends GraphicObject
     @Override
     public void mouseMoved(int x, int y) 
     {
-        x = getRX(x);
-        y = getRY(y);
+        x = (int)getRX(x);
+        y = (int)getRY(y);
         if     (x <= 0)     moveX = -1;
         else if(x >= w-1)   moveX = +1;
         else                moveX = 0;
