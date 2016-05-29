@@ -1,6 +1,7 @@
 package BellumAutemOrbis.GraphicObject;
 
 import BellumAutemOrbis.BellumAutemOrbis;
+import BellumAutemOrbis.GameObject.Unit;
 import processing.core.PGraphics;
 
 public class World extends GraphicObject
@@ -9,8 +10,8 @@ public class World extends GraphicObject
     private static final String DATPATH = "res/dat/world/";
     public static final int C = 40;
     public final int SCALE = 3;
-    public final int W = 100 * C;
-    public final int H = 100 * C;
+    public final int W = 50 * C;
+    public final int H = 50 * C;
     public static int posX;
     public static int posY;
     public int moveX;
@@ -43,7 +44,16 @@ public class World extends GraphicObject
     }
 
     @Override
-    public void mousePressed(int x, int y) {}
+    public void mousePressed(int x, int y) 
+    {
+        if(!isOn(x, y) || y > (bao.height-bao.H)/2+3*bao.H/4)return;
+        int cx = (posX+x-(bao.width-bao.W)/2) / C;
+        int cy = (posY+y-(bao.height-bao.H)/2) / C;
+        System.out.println(cx + "; " + cy);
+        for(Unit u : Unit.units)
+            if(!u.team && u.cx == cx && u.cy == cy)
+                Unit.selec = u;
+    }
 
     @Override
     public void mouseMoved(int x, int y) 

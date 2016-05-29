@@ -14,7 +14,7 @@ public abstract class GraphicObject
     protected final int w;
     protected final int h;
     protected PImage[] tabImg;
-    protected int[][][] tabDat;
+    public int[][][] tabDat;
      
     protected GraphicObject(BellumAutemOrbis bao, int x, int y, int w, int h)
     {

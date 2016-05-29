@@ -18,7 +18,7 @@ public class DynamicEvent extends Thread
     @Override
     public void run()
     {
-        while(!stop)                                                           //Executé tic fois par seconde
+        while(!stop)                                                            //Executé tic fois par seconde
         {
             moveWorld();
             moveUnit();
@@ -41,8 +41,8 @@ public class DynamicEvent extends Thread
         World.posY += w.moveY * w.SCALE;
         if(World.posY < 0)
             World.posY = 0;
-        else if(World.posY > (w.H - bao.H))
-            World.posY = w.H - bao.H;
+        else if(World.posY > (w.H - 3*bao.H/4 - 40))
+            World.posY = w.H - 3*bao.H/4 - 40;
     }
 
     private void moveUnit()
@@ -52,8 +52,8 @@ public class DynamicEvent extends Thread
         {
             if(u.path.isEmpty())
                 continue;
-            //System.out.println(u.y - (bao.height-bao.H)/2 + "; " + (u.cy+1) * World.C);
-            //System.out.println(u.direc);
+            //System.out.println((u.y - (bao.height-bao.H)/2) + "; " + ((u.cy+1) * World.C + World.C/2));
+            //System.out.println(u.cx+ "; " +u.cy);
             switch(u.direc)
             {
                 case 0:
@@ -82,12 +82,14 @@ public class DynamicEvent extends Thread
 
     private void animUnit()
     {
-
-            /*if(Unit.tabAnim[u.type][u.img] <= (int) (u.time))
+        for(Unit u : Unit.units)
+        {
+            if(u.tabDat[1][u.type][4] <= (int) (u.time))
             {
-                u.time -= Unit.tabAnim[u.type][u.img];
-                u.img = (u.img + 1) % Unit.tabAnim[u.type].length;
+                u.time -= u.tabDat[1][u.type][4];
+                u.anim = (u.anim + 1) % 4;
             }
-            u.time += tisl;*/
+            u.time += tic;
+        }
     }
 }

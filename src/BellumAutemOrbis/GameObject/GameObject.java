@@ -7,7 +7,7 @@ import processing.core.PImage;
 
 public abstract class GameObject extends GraphicObject
 {
-    protected int type;
+    public int type;
     protected PImage[][] tabSprite;
     public int cx, cy;
     

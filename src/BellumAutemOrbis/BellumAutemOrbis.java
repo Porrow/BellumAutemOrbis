@@ -11,7 +11,7 @@ public class BellumAutemOrbis extends PApplet
     public final int H = 720;
     public static final int FPS = 60;
     private final String TITLE = "Bellum Autem Orbis";
-    private final boolean DEBUG = true;                                         //True : affiche des informations de debuggage et de performance
+    private final boolean DEBUG = false;                                         //True : affiche des informations de debuggage et de performance
     
     public static BellumAutemOrbis bao;
     private int view;
