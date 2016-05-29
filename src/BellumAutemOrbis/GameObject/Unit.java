@@ -29,13 +29,13 @@ public class Unit extends GameObject
         att = tabDat[1][type][1];
         gold = tabDat[1][type][2];
         speed = tabDat[1][type][3];
-        int[] p1 = {1, 0};
+        /*int[] p1 = {1, 0};
         int[] p2 = {1, 1};
         int[] p3 = {2, 1};
         //int[] p4 = {3, 1};
         path.add(p1);
         path.add(p2);
-        path.add(p3);
+        path.add(p3);*/
         //path.add(p4);
         //changeDirection();
         units.add(this);

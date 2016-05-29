@@ -42,7 +42,7 @@ public class BellumAutemOrbis extends PApplet
     public void settings()                                                      //Paramétrage (appelé en premier)
     {
         bao = this;
-        size(W, H, P2D);                                                             //Taille de la fenêtre
+        //size(W, H, P2D);                                                             //Taille de la fenêtre
         fullScreen(P2D);
     }
     
@@ -53,7 +53,7 @@ public class BellumAutemOrbis extends PApplet
         frameRate(FPS);                                                         //Nombre d'images par seconde max
         
         initViews();
-        setView(1);
+        setView(0);
         new DynamicEvent((Game)tabView[1]).start();
     }
     

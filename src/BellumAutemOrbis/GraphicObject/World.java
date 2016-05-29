@@ -52,7 +52,11 @@ public class World extends GraphicObject
         System.out.println(cx + "; " + cy);
         for(Unit u : Unit.units)
             if(!u.team && u.cx == cx && u.cy == cy)
+            {
                 Unit.selec = u;
+                return;
+            }
+        Unit.selec = null;
     }
 
     @Override

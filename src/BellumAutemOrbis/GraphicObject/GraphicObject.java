@@ -7,13 +7,13 @@ import static processing.core.PConstants.ARGB;
  
 public abstract class GraphicObject
 {   
-    private static final String[] IMG_EXT = {".png", ".jpg", ".gif"};      //Extensions d'image autorisées
+    private static final String[] IMG_EXT = {".png", ".jpg", ".gif"};           //Extensions d'image autorisées
     protected final BellumAutemOrbis bao;
     public float x;
     public float y;
-    protected final int w;
-    protected final int h;
-    protected PImage[] tabImg;
+    protected int w;
+    protected int h;
+    public PImage[] tabImg;
     public int[][][] tabDat;
      
     protected GraphicObject(BellumAutemOrbis bao, int x, int y, int w, int h)
@@ -114,6 +114,11 @@ public abstract class GraphicObject
     protected void rect(int rx, int ry, int w, int h)
     {
         bao.g.rect(x + rx, y + ry, w, h);
+    }
+    
+    protected void rect(int rx, int ry, int w, int h, int r)
+    {
+        bao.g.rect(x + rx, y + ry, w, h, r);
     }
      
     protected void ellipse(int rx, int ry, int w, int h)

@@ -8,7 +8,7 @@ import processing.core.PImage;
 public abstract class GameObject extends GraphicObject
 {
     public int type;
-    protected PImage[][] tabSprite;
+    public PImage[][] tabSprite;
     public int cx, cy;
     
     public GameObject(BellumAutemOrbis bao, int type, int cx, int cy, int cw, int ch, String imgPath, String datPath)
