@@ -77,22 +77,32 @@ public class Button extends GraphicObject
     }
 
     @Override
-    public void mousePressed(int x, int y)
+    public void mousePressed(int x, int y, int type)
     {
         changeState(false);
         switch(ID)
         {
             case 0:                                                             //Actions lors d'un clic de souris sur le bouton jouer
                 if(isOn(x, y))
-                    bao.setView(1);
+                    bao.setView(2);
                 break;
             case 1:                                                             //Actions lors d'un clic de souris sur le bouton quitter
                 if(isOn(x, y))
                     BellumAutemOrbis.bao.exit();
                 break;
             case 2:                                                             //Actions lors d'un clic de souris sur le bouton annuler
+                if(isOn(x, y))
+                {
+                    bao.setView(1);
+                    bao.startGame(false);
+                }
                 break;
             case 3:                                                             //Actions lors d'un clic de souris sur le bouton en ligne : normale
+                if(isOn(x, y))
+                {
+                    bao.setView(1);
+                    bao.startGame(true);
+                }
                 break;
             case 4:                                                             //Actions lors d'un clic de souris sur le bouton en ligne : classique
                 break;
@@ -107,10 +117,5 @@ public class Button extends GraphicObject
     public void mouseMoved(int x, int y)
     {
         changeState(isOn(x, y));
-
-        /*if(se.getViews()[0].getGO()[2].isOn(x, y) || se.getViews()[0].getGO()[4].isOn(x, y))
-         se.getSurface().setCursor(12);                                      //Modification de l'apparence du curseur de la souris lorsque l'on est au-dessus d'un bouton
-         else
-         se.getSurface().setCursor(0);*/
     }
 }

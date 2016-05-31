@@ -5,52 +5,51 @@ import BellumAutemOrbis.GraphicObject.World;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Unit extends GameObject
 {
     private static final String IMGPATH = "res/img/unit/";
     private static final String DATPATH = "res/dat/unit/";
-    public static ArrayList<Unit> units = new ArrayList<>();
-    public static Unit selec = null;
+    public static final ArrayList<Unit> units = new ArrayList<>();
     public LinkedList<int[]> path = new LinkedList<>();
+    public PImage[][] tabSprite;
     public int direc = 2;
     public int anim = 0;
     public long time = 0;
-    public boolean team;
-    public int hp;
     public int att;
-    public int gold;
     public int speed;
-    
-    public Unit(BellumAutemOrbis bao, int type, boolean team, int cx, int cy)
+
+    public Unit(BellumAutemOrbis bao, int type, int cx, int cy, boolean team)
     {
-        super(bao, type, cx, cy, 0, 0, IMGPATH, DATPATH);
+        super(bao, type, team, cx, cy, 1, 1, IMGPATH, DATPATH);
         hp = tabDat[1][type][0];
         att = tabDat[1][type][1];
         gold = tabDat[1][type][2];
         speed = tabDat[1][type][3];
-        /*int[] p1 = {1, 0};
-        int[] p2 = {1, 1};
-        int[] p3 = {2, 1};
-        //int[] p4 = {3, 1};
-        path.add(p1);
-        path.add(p2);
-        path.add(p3);*/
-        //path.add(p4);
-        //changeDirection();
+//        int[] p1 = {5, 4};
+//      int[] p2 = {5, 5};int[] p3 = {6, 5};int[] p4 = {7, 5};int[] p5 = {7,4};
+//      int[] p6 = {6,4};int[] p7 = {6,4};int[] p8 = {5,4};int[] p9 = {4,4};
+        //path = astar.astar(World.colli, new Elements(0,0,cx,cy,null), new Elements(8,8,30,42,null));
+        if(!path.isEmpty())
+            getDirection();
         units.add(this);
+
+        init();
+        //units.add(this);
     }
-    
+
     public void changeDirection()
     {
         //System.out.println("vfgvf");
-        if(path.isEmpty())return;
-        /*if(path.size() < 2)
-        {
-            if(!path.isEmpty())
-                path.remove(0);
+        if(path.isEmpty())
             return;
-        }*/
+        /*if(path.size() < 2)
+         {
+         if(!path.isEmpty())
+         path.remove(0);
+         return;
+         }*/
         //path.remove(0);
         int[] coord = path.remove(0);
         int xc = coord[0] - cx;
@@ -75,26 +74,59 @@ public class Unit extends GameObject
             direc = 3;
             cy -= 1;
         }
-        else{
+        else
             System.out.println("fuck");
-        }
     }
-    
+
+    private void getDirection()
+    {
+        if(path.isEmpty())
+            return;
+        /*if(path.size() < 2)
+         {
+         if(!path.isEmpty())
+         path.remove(0);
+         return;
+         }*/
+        //path.remove(0);
+        int[] coord = path.get(0);
+        int xc = coord[0] - cx;
+        int yc = coord[1] - cy;
+        if(xc == 1 && yc == 0)
+            direc = 2;
+        else if(xc == -1 && yc == 0)
+            direc = 1;
+        else if(yc == 1 && xc == 0)
+            direc = 0;
+        else if(yc == -1 && xc == 0)
+            direc = 3;
+        else
+            System.out.println("fuck");
+    }
+
+    @Override
+    public void init()
+    {
+        tabSprite = cut(tabImg[type], tabDat[0][type][0], tabDat[0][type][1]);
+    }
+
     @Override
     public void draw()
     {
         if(isOutside())
         {
-            bao.g.imageMode(PApplet.CENTER);
+            bao.g.imageMode(PApplet.CORNER);
             image(tabSprite[direc][anim], -World.posX, -World.posY);
         }
     }
 
     @Override
-    public void mousePressed(int x, int y)
-    {}
+    public void mousePressed(int x, int y, int type)
+    {
+    }
 
     @Override
     public void mouseMoved(int x, int y)
-    {}
+    {
+    }
 }

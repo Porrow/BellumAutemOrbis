@@ -1,7 +1,7 @@
 package BellumAutemOrbis.GraphicObject;
 
 import BellumAutemOrbis.BellumAutemOrbis;
-import BellumAutemOrbis.GameObject.Unit;
+import BellumAutemOrbis.GameObject.*;
 import processing.core.PApplet;
 import processing.core.PFont;
 
@@ -9,7 +9,8 @@ public class UI extends GraphicObject
 {
     private static final String IMGPATH = "res/img/ui/";
     private static final String FONTPATH = "res/font/";
-    private PFont font;
+    public static PFont font, font1, font2;
+    public static int ui = 0;
     
     public UI(BellumAutemOrbis bao, int x, int y, int w, int h) 
     {
@@ -19,26 +20,37 @@ public class UI extends GraphicObject
     @Override
     public void init() 
     {
-        this.font = bao.createFont(FONTPATH + "OldLondon.ttf", 35);
+        this.font1 = bao.createFont(FONTPATH + "Miama.ttf", 55);
+        this.font2 = bao.createFont(FONTPATH + "OldLondon.ttf", 35);
     }
 
     @Override
     public void draw() 
     {
         bao.g.imageMode(PApplet.CORNER);
-        image(tabImg[1], -1, 0);
+        image(tabImg[ui], -1, 0);
         bao.textFont(font);
         bao.g.fill(0);
-        if(Unit.selec != null)
+        if(GameObject.selec != null)
         {
-            text("Vie : "+Unit.selec.hp+" / "+Unit.selec.tabDat[1][Unit.selec.type][0], bao.W/2-20, 90);
-            text("Attaque : "+Unit.selec.att, bao.W/2-20, 130);
-            image(Unit.selec.tabSprite[0][0], 190, 70);
+            text("Vie : "+GameObject.selec.hp+" / "+GameObject.selec.tabDat[1][Unit.selec.type][0], bao.W/2-20, 90);
+            if(GameObject.selec.cw == 1)
+            {
+                Unit u = (Unit)GameObject.selec;
+                text("Attaque : "+u.att, bao.W/2 - 20, 130);
+                image(tabImg[Unit.selec.type+2], 150, 40);
+            }
+            else
+            {
+                Building b = (Building)GameObject.selec;
+                image(b.tabImg[b.type], 150, 40);
+            
+            }
         }
     }
 
     @Override
-    public void mousePressed(int x, int y) 
+    public void mousePressed(int x, int y, int type) 
     {}
 
     @Override

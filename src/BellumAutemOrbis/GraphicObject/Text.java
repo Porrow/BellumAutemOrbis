@@ -34,7 +34,7 @@ public class Text extends GraphicObject
     }
 
     @Override
-    public void mousePressed(int x, int y){}
+    public void mousePressed(int x, int y, int type){}
 
     @Override
     public void mouseMoved(int x, int y){}

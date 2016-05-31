@@ -13,6 +13,7 @@ public class DynamicEvent extends Thread
     public DynamicEvent(Game g)
     {
         this.g = g;
+        stop = false;
     }
 
     @Override
@@ -21,10 +22,18 @@ public class DynamicEvent extends Thread
         while(!stop)                                                            //Executé tic fois par seconde
         {
             moveWorld();
-            moveUnit();
-            animUnit();
-            try{sleep(tic);}
-            catch(InterruptedException e){}
+            synchronized(Unit.units)
+            {
+                moveUnit();
+                animUnit();
+            }
+            try
+            {
+                sleep(tic);
+            }
+            catch(InterruptedException e)
+            {
+            }
         }
     }
 
@@ -41,8 +50,8 @@ public class DynamicEvent extends Thread
         World.posY += w.moveY * w.SCALE;
         if(World.posY < 0)
             World.posY = 0;
-        else if(World.posY > (w.H - 3*bao.H/4 - 40))
-            World.posY = w.H - 3*bao.H/4 - 40;
+        else if(World.posY > (w.H - 3 * bao.H / 4 - 40))
+            World.posY = w.H - 3 * bao.H / 4 - 40;
     }
 
     private void moveUnit()
@@ -58,22 +67,22 @@ public class DynamicEvent extends Thread
             {
                 case 0:
                     u.y += (float) (u.speed) / BellumAutemOrbis.FPS;
-                    if(u.y - (bao.height-bao.H)/2 >= (u.cy+1) * World.C + World.C/2)
+                    if(u.y - (bao.height - bao.H) / 2 >= (u.cy) * World.C)
                         u.changeDirection();
                     break;
                 case 1:
                     u.x -= (float) (u.speed) / BellumAutemOrbis.FPS;
-                    if(u.x - (bao.width-bao.W)/2 <= u.cx * World.C - World.C/2)
+                    if(u.x - (bao.width - bao.W) / 2 <= (u.cx) * World.C)
                         u.changeDirection();
                     break;
                 case 2:
                     u.x += (float) (u.speed) / BellumAutemOrbis.FPS;
-                    if(u.x - (bao.width-bao.W)/2 >= (u.cx+1) * World.C + World.C/2)
+                    if(u.x - (bao.width - bao.W) / 2 >= (u.cx) * World.C)
                         u.changeDirection();
                     break;
                 case 3:
                     u.y -= (float) (u.speed) / BellumAutemOrbis.FPS;
-                    if(u.y - (bao.height-bao.H)/2 <= u.cy * World.C - World.C/2)
+                    if(u.y - (bao.height - bao.H) / 2 <= (u.cy) * World.C)
                         u.changeDirection();
                     break;
             }

@@ -4,9 +4,10 @@ import BellumAutemOrbis.BellumAutemOrbis;
 
 public class ATH extends GraphicObject
 {
-
+    private static final String IMGPATH = "res/img/ath/";
+    
     public ATH(BellumAutemOrbis bao, int x, int y, int w, int h) {
-        super(bao, x, y, w, h);
+        super(bao, x, y, w, h, IMGPATH);
     }
 
     @Override
@@ -17,11 +18,11 @@ public class ATH extends GraphicObject
     public void draw() 
     {
         bao.g.fill(255);
-        rect(0, 0, w, h);
+        image(tabImg[0], 0, 0);
     }
 
     @Override
-    public void mousePressed(int x, int y)
+    public void mousePressed(int x, int y, int type)
     {}
 
     @Override

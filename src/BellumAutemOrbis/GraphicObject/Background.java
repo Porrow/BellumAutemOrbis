@@ -1,7 +1,6 @@
-package BellumAutemOrbis.View;
+package BellumAutemOrbis.GraphicObject;
 
 import BellumAutemOrbis.BellumAutemOrbis;
-import BellumAutemOrbis.GraphicObject.GraphicObject;
 
 public class Background extends GraphicObject {
 
@@ -23,7 +22,7 @@ public class Background extends GraphicObject {
     }
 
     @Override
-    public void mousePressed(int x, int y) {
+    public void mousePressed(int x, int y, int type) {
     }
 
     @Override

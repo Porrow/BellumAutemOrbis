@@ -143,12 +143,12 @@ public abstract class GraphicObject
     public float getY(){return y;}
     public int getW(){return w;}
     public int getH(){return h;}
-    public float getRX(int px){return px - x;}                                    //Position relative en x
-    public float getRY(int py){return py - y;}                                    //Position relative en y
+    public float getRX(int px){return px - x;}                                  //Position relative en x
+    public float getRY(int py){return py - y;}                                  //Position relative en y
      
     /*Abstract methods*/
     public abstract void init();                                                //Gestion de l'initialisation du composant graphique (appelé à chaque changement de View)
     public abstract void draw();                                                //Gestion de l'affichage du composant à l'aide de processing (appelé 60 fois par sec)
-    public abstract void mousePressed(int x, int y);                            //Gestion des clics de souris (appelé à chaque clic sur le composant)
+    public abstract void mousePressed(int x, int y, int type);                  //Gestion des clics de souris (appelé à chaque clic sur le composant)
     public abstract void mouseMoved(int x, int y);                              //Gestion du mouvement de la souris (appelé à chaque mouvement sur le composant)
 }
